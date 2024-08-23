@@ -157,7 +157,7 @@ class Topics
 
         if ($this->hasOnlyOneTopic()) {
             foreach ($this->conditions[0] as $topic) {
-                return '/topics/'.$topic;
+                return $topic;
             }
         }
 

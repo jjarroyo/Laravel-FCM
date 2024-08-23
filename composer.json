@@ -1,5 +1,5 @@
 {
-    "name": "apility/laravel-fcm",
+    "name": "jjarroyo/laravel-fcm",
     "description": "Laravel / Lumen package for Firebase Cloud Messaging ",
     "keywords": ["laravel", "lumen", "firebase", "notification", "push", "fcm", "firebase cloud messaging"],
     "type": "library",
@@ -12,13 +12,19 @@
         {
             "name": "Thomas Alrek",
             "email": "thomas@apility.no"
+        },
+        {
+            "name": "Jorge",
+            "email": "jorgejaraba18@gmail.com"
         }
     ],
     "require": {
         "php": ">=5.5.9",
         "illuminate/support": "^5.0|^6.0|^7.0|^8.0|^9.0",
         "guzzlehttp/guzzle": "^6.0|^7.0",
-        "monolog/monolog": "^1.0|^2.0"
+        "monolog/monolog": "^1.0|^2.0",
+        "google/apiclient": "^2.14",
+        "ext-json": "*"
     },
     "require-dev": {
         "mockery/mockery" : "0.9.*",

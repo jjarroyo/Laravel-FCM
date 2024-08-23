@@ -1,10 +1,9 @@
 <?php
 
 namespace LaravelFCM;
-
-use GuzzleHttp\Client;
+use Google\Client;
 use Illuminate\Support\Manager;
-
+use Google\Service\FirebaseCloudMessaging;
 class FCMManager extends Manager
 {
     public function getDefaultDriver()
@@ -16,6 +15,13 @@ class FCMManager extends Manager
     {
         $config = $this->container[ 'config' ]->get('fcm.http', []);
 
-        return new Client(['timeout' => $config[ 'timeout' ]]);
+        $client =  new Client(['timeout' => $config[ 'timeout' ]]);
+
+        $serviceAccount = json_decode(file_get_contents($config['service_account']), true);       
+        $client->setAuthConfig($serviceAccount);
+        $client->addScope(FirebaseCloudMessaging::CLOUD_PLATFORM);
+        $httpClient = $client->authorize();
+
+        return $httpClient;
     }
 }

@@ -29,6 +29,8 @@ class PayloadDataBuilder
     {
         $this->data = $this->data ?: [];
 
+        $data = array_map('strval', $data);
+        
         $this->data = array_merge($data, $this->data);
 
         return $this;

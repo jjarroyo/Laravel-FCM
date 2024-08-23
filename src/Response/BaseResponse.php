@@ -15,7 +15,7 @@ abstract class BaseResponse
     const SUCCESS = 'success';
     const FAILURE = 'failure';
     const ERROR = 'error';
-    const MESSAGE_ID = 'message_id';
+    const MESSAGE_ID = 'name';
 
     /**
      * @var bool
@@ -31,7 +31,8 @@ abstract class BaseResponse
     {
         $this->isJsonResponse($response);
         $this->logEnabled = app('config')->get('fcm.log_enabled', false);
-        $responseInJson = json_decode($response->getBody(), true);
+        $responseBody = $response->getBody();
+        $responseInJson = json_decode($responseBody, true);
         $this->parseResponse($responseInJson);
     }
 

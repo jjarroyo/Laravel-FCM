@@ -94,7 +94,6 @@ class FCMSender extends HTTPSender
         $request = new Request(null, $options, $notification, $data, $topics);
 
         $responseGuzzle = $this->post($request);
-
         return new TopicResponse($responseGuzzle, $topics);
     }
 
@@ -108,7 +107,7 @@ class FCMSender extends HTTPSender
     protected function post($request)
     {
         try {
-            $responseGuzzle = $this->client->request('post', $this->url, $request->build());
+            $responseGuzzle = $this->client->request('post',$this->url, $request->build());
         } catch (ClientException $e) {
             $responseGuzzle = $e->getResponse();
         }

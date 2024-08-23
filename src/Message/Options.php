@@ -65,6 +65,83 @@ class Options implements Arrayable
      */
     protected $isDryRun = false;
 
+        /**
+     * @internal
+     *
+     * @var null/string
+     */
+    protected $channelId;
+
+    /**
+     * @internal
+     *
+     * @var null|string
+     */
+    protected $icon;
+
+    /**
+     * @internal
+     *
+     * @var null|string
+     */
+    protected $sound;
+
+    /**
+     * @internal
+     *
+     * @var null|string
+     */
+    protected $badge;
+
+    /**
+     * @internal
+     *
+     * @var null|string
+     */
+    protected $tag;
+
+    /**
+     * @internal
+     *
+     * @var null|string
+     */
+    protected $color;
+
+    /**
+     * @internal
+     *
+     * @var null|string
+     */
+    protected $clickAction;
+
+    /**
+     * @internal
+     *
+     * @var null|string
+     */
+    protected $bodyLocationKey;
+
+    /**
+     * @internal
+     *
+     * @var null|string
+     */
+    protected $bodyLocationArgs;
+
+    /**
+     * @internal
+     *
+     * @var null|string
+     */
+    protected $titleLocationKey;
+
+    /**
+     * @internal
+     *
+     * @var null|string
+     */
+    protected $titleLocationArgs;
+
     /**
      * Options constructor.
      *
@@ -80,6 +157,17 @@ class Options implements Arrayable
         $this->timeToLive = $builder->getTimeToLive();
         $this->restrictedPackageName = $builder->getRestrictedPackageName();
         $this->isDryRun = $builder->isDryRun();
+        $this->channelId = $builder->getChannelId();
+        $this->icon = $builder->getIcon();
+        $this->sound = $builder->getSound();
+        $this->badge = $builder->getBadge();
+        $this->tag = $builder->getTag();
+        $this->color = $builder->getColor();
+        $this->clickAction = $builder->getClickAction();
+        $this->bodyLocationKey = $builder->getBodyLocationKey();
+        $this->bodyLocationArgs = $builder->getBodyLocationArgs();
+        $this->titleLocationKey = $builder->getTitleLocationKey();
+        $this->titleLocationArgs = $builder->getTitleLocationArgs();
     }
 
     /**
@@ -97,12 +185,23 @@ class Options implements Arrayable
         $options = [
             'collapse_key' => $this->collapseKey,
             'priority' => $this->priority,
-            'content_available' => $contentAvailable,
-            'mutable_content' => $mutableContent,
+            'content-available' =>$contentAvailable,
+            'mutable-content' => $mutableContent,
             'delay_while_idle' => $delayWhileIdle,
-            'time_to_live' => $this->timeToLive,
+            'ttl' => $this->timeToLive,
             'restricted_package_name' => $this->restrictedPackageName,
-            'dry_run' => $dryRun,
+            'dry_run' => $dryRun,            
+            'channel_id' => $this->channelId,
+            'icon' => $this->icon,
+            'sound' => $this->sound,
+            'badge' => $this->badge,
+            'tag' => $this->tag,
+            'color' => $this->color,
+            'click_action' => $this->clickAction,
+            'body_loc_key' => $this->bodyLocationKey,
+            'body_loc_args' => $this->bodyLocationArgs,
+            'title_loc_key' => $this->titleLocationKey,
+            'title_loc_args' => $this->titleLocationArgs,
         ];
 
         return array_filter($options);

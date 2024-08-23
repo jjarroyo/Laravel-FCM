@@ -74,18 +74,37 @@ class Request extends BaseRequest
      */
     protected function buildBody()
     {
-        $message = [
-            'to' => $this->getTo(),
+       /* $message = [
+            'topic' => $this->getTo(),
             'registration_ids' => $this->getRegistrationIds(),
             'notification' => $this->getNotification(),
             'data' => $this->getData(),
+        ];*/
+
+        $body = [
+            'topic' => $this->getTo(),
+           // 'registration_ids' => $this->getRegistrationIds()[0],
+            'notification' => $this->getNotification(),
+            'data' => $this->getData(),
         ];
-
-        $message = array_merge($message, $this->getOptions());
-
+        $body =array_filter(array_merge($body, $this->getOptions()));
+        $message = [
+            'message' => $body
+        ];
         // remove null entries
         return array_filter($message);
     }
+
+
+    protected function buildRequestHeader()
+    {
+        return [
+           // 'Authorization' => 'Bearer '.$this->client->fetchAccessTokenWithAssertion()['access_token'],
+            'Content-Type' => 'application/json',
+            'project_id' => $this->config['sender_id'],
+        ];
+    }
+
 
     /**
      * get to key transformed.
@@ -120,13 +139,41 @@ class Request extends BaseRequest
      */
     protected function getOptions()
     {
+        $extra = [];
         $options = $this->options ? $this->options->toArray() : [];
 
         if ($this->topic && !$this->topic->hasOnlyOneTopic()) {
             $options = array_merge($options, $this->topic->build());
         }
+        $apns = [];
+        if(count($options)){
 
-        return $options;
+            if (isset($options['badge'])) {
+                $apns["badge"] = $options['badge'];          
+            }
+            if (isset($options['mutable-content'])) {
+                $apns["mutable-content"] = $options['mutable-content'];           
+            }
+            if (isset($options['sound'])) {
+                $apns["sound"] = $options['sound'];
+            }
+            if (isset($options['content-available'])) {
+                $apns["content-available"] = $options['content-available'] ? 1 : 0;
+                unset($options['content-available']);
+            }
+
+            $extra["android"] = $options;
+        }
+
+        if(count($apns)){
+            $extra["apns"] =[
+                "payload" =>[
+                    "aps" => $apns
+                ]
+            ];
+        }
+
+        return $extra;
     }
 
     /**

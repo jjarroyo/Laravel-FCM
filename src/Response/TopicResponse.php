@@ -77,7 +77,7 @@ class TopicResponse extends BaseResponse implements TopicResponseContract
      */
     private function parseSuccess($responseInJson)
     {
-        if (array_key_exists(self::MESSAGE_ID, $responseInJson)) {
+        if (isset($responseInJson[self::MESSAGE_ID])) {
             $this->messageId = $responseInJson[ self::MESSAGE_ID ];
         }
     }
@@ -89,7 +89,7 @@ class TopicResponse extends BaseResponse implements TopicResponseContract
      */
     private function parseError($responseInJson)
     {
-        if (array_key_exists(self::ERROR, $responseInJson)) {
+        if (isset($responseInJson[self::ERROR])) { 
             if (in_array(self::LIMIT_RATE_TOPICS_EXCEEDED, $responseInJson)) {
                 $this->needRetry = true;
             }
