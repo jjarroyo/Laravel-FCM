@@ -29,7 +29,7 @@ Or you can add it directly in your composer.json file:
 ```json
 {
     "require": {
-        "jjarroyo/laravel-fcm": "1.0"
+        "jjarroyo/laravel-fcm": "1.1"
     }
 }
 ```
@@ -94,11 +94,16 @@ In your `.env` file, add the server key and the secret key for the Firebase Clou
 ```php
 FCM_SERVER_KEY=my_secret_server_key
 FCM_SENDER_ID=my_secret_sender_id
+GOOGLE_SERVICE_ACCOUNT=/path/file.json 
 ```
 
 To get these keys, you must create a new application on the [firebase cloud messaging console](https://console.firebase.google.com/).
 
 After the creation of your application on Firebase, you can find keys in `project settings -> cloud messaging`.
+
+
+file.json
+![image](https://github.com/user-attachments/assets/283f0c22-3463-474b-89d8-855f3abb7e34)
 
 
 ## Basic Usage
