@@ -162,7 +162,7 @@ class Request extends BaseRequest
                 unset($options['content-available']);
             }
 
-            $extra["android"] = $options;
+           // $extra["android"] = $options;
         }
 
         if(count($apns)){
